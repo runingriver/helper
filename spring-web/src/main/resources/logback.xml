@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <property name="encoding" value="UTF-8" />
+    <property name="std-pattern" value="[%d{MM-dd HH:mm:ss.SSS} [%t] %p %logger{36}.%M:%L]-%m%n"/>
+
+    <!-- 将日志输入到控制台 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${std-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+    </appender>
+
+    <!-- 按照时间格式滚动的策略，如果gz、zip结尾会自动压缩 -->
+    <!--打印info,warn,error日志-->
+    <!--<appender name="infoLogger"  class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--<file>${catalina.base}/logs/help.log</file>-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--<fileNamePattern>${catalina.base}/logs/help.%d{yyyy-MM-dd}.log.gz</fileNamePattern>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>${std-pattern}</pattern>-->
+        <!--</encoder>-->
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+            <!--<level>info</level>-->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--<onMismatch>DENY</onMismatch>-->
+        <!--</filter>-->
+    <!--</appender>-->
+
+    <!--myibatis log configure,adjust by yourself-->
+    <logger name="dao" level="DEBUG"/>
+    <logger name="com.apache.ibatis" level="TRACE"/>
+    <logger name="java.sql.Connection" level="DEBUG"/>
+    <logger name="java.sql.Statement" level="DEBUG"/>
+    <logger name="java.sql.PreparedStatement" level="DEBUG"/>
+
+    <root level="info">
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

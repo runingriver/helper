@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-lazy-init="true">
+    <description>Spring公共配置</description>
+
+    <!--注入bean,任何地方可以使用-->
+    <bean id="httpClientFactoryBean" class="org.helper.http.HttpClientFactoryBean"/>
+    <bean id="asyncHttpClientFactoryBean" class="org.helper.http.AsyncHttpClientFactoryBean"/>
+
+    <util:properties id="config" location="classpath:config.properties"/>
+
+    <import resource="classpath:spring/spring-dao.xml"/>
+    <import resource="classpath:spring/spring-service.xml"/>
+</beans>

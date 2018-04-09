@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--的缓存的全局开关-->
+        <setting name="cacheEnabled" value="false"/>
+        <!--超时时间，它决定驱动等待数据库响应的秒数-->
+        <setting name="defaultStatementTimeout" value="3000"/>
+        <!--自动驼峰命名规则映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--允许 JDBC 支持自动生成主键，需要驱动兼容-->
+        <!--如果设置为 true 则这个设置强制使用自动生成主键，尽管一些驱动不能兼容但仍可正常工作-->
+        <setting name="useGeneratedKeys" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <!--包扫描，下的bean定义别名-->
+        <!--若没有注解，会使用 Bean 的首字母小写的非限定类名来作为它的别名-->
+        <!--若有注解，则别名为其注解值-->
+        <package name="org.helper.model"/>
+    </typeAliases>
+
+</configuration>

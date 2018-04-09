@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.helper.dao.FinancialTestDao">
+
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT count(1) FROM sms_financial_test
+    </select>
+
+    <select id="selectByPage" resultType="org.helper.model.FinancialTest">
+        SELECT id,mobile,weekday_msg_count,weekend_msg_count
+        FROM sms_financial_test
+        limit #{start},#{end}
+    </select>
+</mapper>

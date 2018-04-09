@@ -1,0 +1,89 @@
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+       <!--http://www.springframework.org/schema/beans/spring-beans.xsd-->
+       <!--http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">-->
+
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<value>file:${activemq.conf}/credentials.properties</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="logQuery" class="io.fabric8.insight.log.log4j.Log4jLogQuery"-->
+          <!--lazy-init="false" scope="singleton"-->
+          <!--init-method="start" destroy-method="stop">-->
+    <!--</bean>-->
+
+    <!--<broker xmlns="http://activemq.apache.org/schema/core" brokerName="sms-mq" dataDirectory="${activemq.data}"-->
+            <!--advisorySupport="false" offlineDurableSubscriberTimeout="1800000"-->
+            <!--offlineDurableSubscriberTaskSchedule="600000">-->
+
+        <!--<destinationPolicy>-->
+            <!--<policyMap>-->
+                <!--<policyEntries>-->
+                    <!--<policyEntry topic=">">-->
+                        <!--<pendingMessageLimitStrategy>-->
+                            <!--<constantPendingMessageLimitStrategy limit="1000"/>-->
+                        <!--</pendingMessageLimitStrategy>-->
+                    <!--</policyEntry>-->
+                <!--</policyEntries>-->
+            <!--</policyMap>-->
+        <!--</destinationPolicy>-->
+
+        <!--<managementContext>-->
+            <!--<managementContext createConnector="false"/>-->
+        <!--</managementContext>-->
+
+        <!--<persistenceAdapter>-->
+            <!--<replicatedLevelDB-->
+                    <!--directory="${activemq.data}/leveldb"-->
+                    <!--replicas="3"-->
+                    <!--bind="tcp://0.0.0.0:56262"-->
+                    <!--zkAddress="10.88.65.156:8212,10.88.106.110:8212,10.88.141.161:8212"-->
+                    <!--zkPath="/activemq/leveldb-stores"-->
+                    <!--zkSessionTimeout="30s"-->
+                    <!--weight="3"-->
+            <!--/>-->
+        <!--</persistenceAdapter>-->
+
+        <!--<plugins>-->
+            <!--<runtimeConfigurationPlugin checkPeriod="30000"/>-->
+            <!--<simpleAuthenticationPlugin>-->
+                <!--<users>-->
+                    <!--<authenticationUser username="${activemq.username}" password="${activemq.password}"-->
+                                        <!--groups="users,admins"/>-->
+                <!--</users>-->
+            <!--</simpleAuthenticationPlugin>-->
+        <!--</plugins>-->
+
+        <!--<systemUsage>-->
+            <!--<systemUsage sendFailIfNoSpaceAfterTimeout="3000">-->
+                <!--<memoryUsage>-->
+                    <!--<memoryUsage percentOfJvmHeap="70"/>-->
+                <!--</memoryUsage>-->
+                <!--<storeUsage>-->
+                    <!--<storeUsage limit="50 gb"/>-->
+                <!--</storeUsage>-->
+                <!--<tempUsage>-->
+                    <!--<tempUsage limit="20 gb"/>-->
+                <!--</tempUsage>-->
+            <!--</systemUsage>-->
+        <!--</systemUsage>-->
+
+        <!--<transportConnectors>-->
+            <!--<transportConnector name="openwire"-->
+                                <!--uri="tcp://0.0.0.0:56161?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>-->
+            <!--<transportConnector name="amqp"-->
+                                <!--uri="amqp://0.0.0.0:7562?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>-->
+            <!--<transportConnector name="stomp"-->
+                                <!--uri="stomp://0.0.0.0:56363?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>-->
+        <!--</transportConnectors>-->
+
+        <!--<shutdownHooks>-->
+            <!--<bean xmlns="http://www.springframework.org/schema/beans"-->
+                  <!--class="org.apache.activemq.hooks.SpringContextHook"/>-->
+        <!--</shutdownHooks>-->
+    <!--</broker>-->
+    <!--<import resource="jetty.xml"/>-->
+<!--</beans>-->

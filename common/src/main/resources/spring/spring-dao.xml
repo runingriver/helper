@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="true">
+
+    <description>Dao层配置</description>
+
+    <!--主从数据库共有属性-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="filters" value="stat,slf4j"/>
+        <!--最大连接池数-->
+        <property name="maxActive" value="20"/>
+        <!--最小连接池数-->
+        <property name="minIdle" value="1"/>
+        <!--初始连接池大小-->
+        <property name="initialSize" value="1"/>
+        <!--获取连接时最长等待时间-->
+        <property name="maxWait" value="1000"/>
+        <!-- 使用非公平锁(提升效率) -->
+        <property name="useUnfairLock" value="true"/>
+        <!--配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <!--testWhileIdle的判断依据,6分钟-->
+        <property name="timeBetweenEvictionRunsMillis" value="360000"/>
+        <!--一个连接在池中最小生存的时间，单位毫秒(最后活跃时间和当前时间),3分钟-->
+        <property name="minEvictableIdleTimeMillis" value="180000"/>
+        <!-- 检查连接是否有效 -->
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <!-- 申请连接时超出timeBetweenEvictionRunsMillis检查连接是否有效 -->
+        <property name="testWhileIdle" value="true"/>
+        <!-- 申请连接时是否检查 -->
+        <property name="testOnBorrow" value="false"/>
+        <!-- 归还连接时是否检查 -->
+        <property name="testOnReturn" value="false"/>
+        <!-- 提升游标操作  -->
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+    </bean>
+
+    <!--创建sqlSessionFactory对象-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:/mybatis/mapper/**/*.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--创建DAO实例bean-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.helper.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!--管理sqlSession生命周期,线程安全-->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+        <constructor-arg index="1" value="REUSE"/>
+    </bean>
+</beans>

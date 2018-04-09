@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.helper.dao.DateAndStringTestDao">
+    <sql id="dateAndStringField">
+        id,
+        date_format(sql_date_to_java_string, '%Y-%m-%d %H:%i:%s') as sqlDateToJavaString,
+        sql_date_to_java_date as sqlDateToJavaDate,
+        sql_timestamp_to_java_string as sqlTimestampToJavaString,
+        sql_timestamp_to_java_date as sqlTimestampToJavaDate,
+        java_string_to_sql_date as javaStringToSqlDate,
+        java_string_to_sql_timestamp as javaStringToSqlTimestamp,
+        sql_string_to_java_date as sqlStringToJavaDate
+    </sql>
+
+    <select id="selectOneById" parameterType="Long" resultType="DateAndStringTest">
+        SELECT <include refid="dateAndStringField"/>
+        FROM date_string_test
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectAll" resultType="DateAndStringTest">
+        SELECT <include refid="dateAndStringField"/>
+        FROM date_string_test
+    </select>
+
+    <insert id="insertOne" parameterType="DateAndStringTest" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sms.date_string_test(sql_date_to_java_string, sql_date_to_java_date,
+        sql_timestamp_to_java_string, sql_timestamp_to_java_date, java_string_to_sql_date,
+        java_string_to_sql_timestamp, sql_string_to_java_date)
+        VALUES (#{sqlDateToJavaString},#{sqlDateToJavaDate},#{sqlTimeStampToJavaString},
+        #{sqlTimeStampToJavaDate},#{javaStringToSqlDate},#{javaStringToSqlTimeStamp},
+        #{sqlStringToJavaDate})
+    </insert>
+
+    <insert id="insertOne2" parameterType="DateAndStringTest" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sms.date_string_test(sql_date_to_java_string, sql_date_to_java_date,
+        sql_timestamp_to_java_string, sql_timestamp_to_java_date, java_string_to_sql_date,
+        java_string_to_sql_timestamp, sql_string_to_java_date)
+        VALUES (#{sqlDateToJavaString,jdbcType=TIMESTAMP},#{sqlDateToJavaDate,jdbcType=TIMESTAMP},
+        #{sqlTimeStampToJavaString,jdbcType=TIMESTAMP},#{sqlTimeStampToJavaDate,jdbcType=TIMESTAMP},
+        #{javaStringToSqlDate,jdbcType=TIMESTAMP},#{javaStringToSqlTimeStamp,jdbcType=TIMESTAMP},
+        #{sqlStringToJavaDate})
+    </insert>
+
+</mapper>
