@@ -9,6 +9,14 @@ import org.helper.thrift.generated.Account;
 import org.helper.thrift.generated.InvalidOperation;
 import org.helper.thrift.generated.Operation;
 import org.helper.thrift.generated.Request;
+import org.apache.commons.pool2.ObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.helper.thrift.pool.AutoClearGenericObjectPool;
+import org.helper.thrift.pool.TProtocolFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class AccountClient {
 
@@ -31,7 +39,8 @@ public class AccountClient {
         request(client, req);
         transport.close();  //关闭连接
     }
-    public static void request(Account.Client client, Request req) throws TException{
+
+    public static void request(Account.Client client, Request req) throws TException {
         try {
             String result = client.doAction(req);
             System.out.println(result);

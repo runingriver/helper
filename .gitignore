@@ -10,3 +10,5 @@ gen
 
 # maven ignore
 target/
+
+.DS_Store

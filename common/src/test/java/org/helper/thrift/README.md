@@ -7,3 +7,7 @@ Tip: gen-java目录下的文件夹会被复制到项目中, 所以namespace的�
 4. 编写service和client代码, java中首先要引入libthrift依赖
 Tip: libthrift依赖要根据版本来, 0.9对应0.9, 0.11对应0.11
 5. 其他的看代码吧
+
+## 基于common-pool2的连接池
+1. pool目录下是一个基于common-pool2的实现
+2. 关于common-pool2做连接池, 参考JRedis的是JedisPool实现!!!
