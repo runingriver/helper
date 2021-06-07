@@ -33,7 +33,7 @@
         <org.mockito.version>1.9.5</org.mockito.version>
         <!--logging-->
         <org.slf4j.version>1.7.5</org.slf4j.version>
-        <logback.version>1.0.13</logback.version>
+        <logback.version>1.2.0</logback.version>
         <!--时间处理-->
         <joda-time.version>2.3</joda-time.version>
         <!--commons-->
